@@ -41,7 +41,7 @@ const Editor = () => {
 
     return (
         <Component>
-            <Box id='container'>
+            <Box className= 'container' id='container'>
 
             </Box>
         </Component>
