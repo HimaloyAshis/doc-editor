@@ -1,9 +1,19 @@
 import { Box } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
+import Quill from 'quill';
+import 'quill/dist/quill.snow.css'
 
 const Editor = () => {
+
+
+    useEffect(()=>{
+
+        const quillServer = new Quill('#container', {theme:'snow'})
+
+    }, [])
+
     return (
-        <Box>
+        <Box id='container'>
 
         </Box>
     );
