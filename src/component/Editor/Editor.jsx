@@ -46,37 +46,55 @@ const Editor = () => {
 
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         const socketServer = io('http://localhost:9000')
 
         setSocket(socketServer)
 
-        return ()=>{
+        return () => {
             socketServer.disconnect()
         }
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        if(socket === null || quill === null) return
+        if (socket === null || quill === null) return
 
-        const handleChange = (delta, oldData, source)=>{
-            if(source !== 'user') return
-            
+        const handleChange = (delta, oldData, source) => {
+            if (source !== 'user') return
+
             socket && socket.emit('send-changes', delta)
         }
 
         quill && quill.on('text-change', handleChange)
 
-        return ()=>{
+        return () => {
             quill && quill.off('text-change', handleChange)
         }
 
-    }, [])
+    }, [quill, socket])
+
+    useEffect(() => {
+
+        if (socket === null || quill === null) return
+
+        const handleChange = (delta) => {
+            
+            quill.updateContents(delta)
+           
+        }
+
+        socket && socket.on('receive-changes', handleChange)
+
+        return () => {
+            socket && socket.off('receive-changes', handleChange)
+        }
+
+    }, [quill, socket])
 
     return (
         <Component>
-            <Box className= 'container' id='container'>
+            <Box className='container' id='container'>
 
             </Box>
         </Component>
