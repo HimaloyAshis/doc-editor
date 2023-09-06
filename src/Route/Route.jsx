@@ -1,6 +1,7 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import Editor from "../component/Editor/Editor";
+import {v4 as uuid} from 'uuid'
 
 const router = createBrowserRouter([
     {
@@ -8,8 +9,12 @@ const router = createBrowserRouter([
         element:<Main></Main>,
         children:[
             {
-                path:'/',
+                path:'/doc/:id',
                 element:<Editor></Editor>
+            },
+            {
+                path:'/',
+                element:<Navigate replace to={`/doc/${uuid()}`} />
             }
         ]
     }
