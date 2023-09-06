@@ -58,7 +58,19 @@ const Editor = () => {
 
     useEffect(()=>{
 
-        
+        if(socket === null || quill === null) return
+
+        const handleChange = (delta, oldData, source)=>{
+            if(source !== 'user') return
+            
+            socket && socket.emit('send-changes', delta)
+        }
+
+        quill && quill.on('text-change', handleChange)
+
+        return ()=>{
+            quill && quill.off('text-change', handleChange)
+        }
 
     }, [])
 
