@@ -128,7 +128,6 @@ const Editor = () => {
 
     return (
         <div>
-            <h1>ok</h1>
             <Component>
                 <Box className='container' id='container'>
 
